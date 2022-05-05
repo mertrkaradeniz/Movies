@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SliderCollectionViewCell" customModule="Movies" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="268" height="200"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="268" height="200"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEb-Ur-Fsq">
+                        <rect key="frame" x="0.0" y="0.0" width="268" height="200"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TUh-u1-LWo">
+                                <rect key="frame" x="0.0" y="0.0" width="268" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JBO-5h-H49" customClass="GradientView" customModule="Movies" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="268" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioU-mP-Rxl">
+                                <rect key="frame" x="16" y="131" width="236" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JBO-5h-H49" secondAttribute="trailing" id="9ie-Xs-U32"/>
+                            <constraint firstItem="TUh-u1-LWo" firstAttribute="top" secondItem="PEb-Ur-Fsq" secondAttribute="top" id="DJA-ER-Kmk"/>
+                            <constraint firstItem="TUh-u1-LWo" firstAttribute="leading" secondItem="PEb-Ur-Fsq" secondAttribute="leading" id="Led-WK-JEa"/>
+                            <constraint firstAttribute="bottom" secondItem="JBO-5h-H49" secondAttribute="bottom" id="MgJ-DG-r6r"/>
+                            <constraint firstAttribute="trailing" secondItem="TUh-u1-LWo" secondAttribute="trailing" id="PG5-xK-gVa"/>
+                            <constraint firstItem="ioU-mP-Rxl" firstAttribute="leading" secondItem="PEb-Ur-Fsq" secondAttribute="leading" constant="16" id="SNg-Vx-8gl"/>
+                            <constraint firstAttribute="bottom" secondItem="ioU-mP-Rxl" secondAttribute="bottom" constant="36" id="XOw-iI-ycP"/>
+                            <constraint firstItem="JBO-5h-H49" firstAttribute="leading" secondItem="PEb-Ur-Fsq" secondAttribute="leading" id="Zhr-TX-Lkt"/>
+                            <constraint firstAttribute="bottom" secondItem="TUh-u1-LWo" secondAttribute="bottom" id="aGT-UV-1z8"/>
+                            <constraint firstItem="JBO-5h-H49" firstAttribute="top" secondItem="PEb-Ur-Fsq" secondAttribute="top" id="og5-rE-JQa"/>
+                            <constraint firstAttribute="trailing" secondItem="ioU-mP-Rxl" secondAttribute="trailing" constant="16" id="tP8-fy-fST"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="PEb-Ur-Fsq" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="08m-uf-bFT"/>
+                <constraint firstAttribute="bottom" secondItem="PEb-Ur-Fsq" secondAttribute="bottom" id="SkR-rL-NHv"/>
+                <constraint firstAttribute="trailing" secondItem="PEb-Ur-Fsq" secondAttribute="trailing" id="fCs-z5-crf"/>
+                <constraint firstItem="PEb-Ur-Fsq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qvp-Ej-n3x"/>
+            </constraints>
+            <size key="customSize" width="268" height="208"/>
+            <connections>
+                <outlet property="imageView" destination="TUh-u1-LWo" id="bO4-wG-9uR"/>
+                <outlet property="movieNameLabel" destination="ioU-mP-Rxl" id="1X5-me-egx"/>
+            </connections>
+            <point key="canvasLocation" x="240.57971014492756" y="155.35714285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
