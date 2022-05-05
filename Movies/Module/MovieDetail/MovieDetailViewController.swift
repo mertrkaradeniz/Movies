@@ -7,7 +7,6 @@
 
 import UIKit
 
-// MARK: - ViewControllerProtocol
 protocol MovieDetailViewControllerProtocol: AnyObject {
     func updateUI()
     func prepareCollectionView()
@@ -95,14 +94,12 @@ extension MovieDetailViewController: MovieDetailViewControllerProtocol {
     }
 }
 
-// MARK: - CollectionViewDelegate
 extension MovieDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.didSelectRowAt(index: indexPath.row)
     }
 }
 
-// MARK: - CollectionViewDataSource
 extension MovieDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter?.numberOfSimilarMovies ?? 0
@@ -117,7 +114,6 @@ extension MovieDetailViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - CollectionViewDelegateFlowLayout
 extension MovieDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         presenter?.collectionViewItemCGSize ?? CGSize()
