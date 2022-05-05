@@ -13,19 +13,19 @@ enum ServiceRouter: URLRequestConvertible {
     case upcoming
     case search(query: String, page: Int)
     case similar(movieId: Int)
-    
+
     var baseURL: URL {
         return URL(string: Constants.BASE_URL)!
     }
-    
+
     var method: HTTPMethod {
         switch self {
         case .nowPlaying, .upcoming, .search, .similar:
             return .get
         }
     }
-    
-    var parameters: [String : Any]? {
+
+    var parameters: [String: Any]? {
         var param: Parameters = [:]
         switch self {
         case .nowPlaying, .upcoming, .similar(movieId: _):
@@ -36,7 +36,7 @@ enum ServiceRouter: URLRequestConvertible {
         }
         return param
     }
-    
+
     private var path: String {
         switch self {
         case .nowPlaying:
@@ -49,17 +49,17 @@ enum ServiceRouter: URLRequestConvertible {
             return "movie/\(movieId)/similar"
         }
     }
-    
+
     var encoding: ParameterEncoding {
         return JSONEncoding.default
     }
-    
+
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let encoding: ParameterEncoding = {
             switch method {
             case .get:
@@ -68,13 +68,13 @@ enum ServiceRouter: URLRequestConvertible {
                 return JSONEncoding.default
             }
         }()
-        
+
         var completeParameters = parameters ?? [:]
         completeParameters["api_key"] = Constants.API_KEY
-        
+
 //        let urlRequestPrint = try encoding.encode(urlRequest, with: completeParameters)
 //        debugPrint("final url", urlRequestPrint.url ?? "")
-        
+
         return try encoding.encode(urlRequest, with: completeParameters)
     }
 }

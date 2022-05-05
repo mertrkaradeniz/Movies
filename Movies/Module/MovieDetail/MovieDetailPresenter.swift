@@ -11,7 +11,7 @@ protocol MovieDetailPresenterProtocol: AnyObject {
     var movieId: Int? { get set }
     var numberOfSimilarMovies: Int { get }
     var collectionViewItemCGSize: CGSize { get }
-    
+
     func viewDidLoad()
     func viewWillAppear(_ animated: Bool)
     func viewWillDisappear(_ animated: Bool)
@@ -25,10 +25,10 @@ final class MovieDetailPresenter {
     private let interactor: MovieDetailInteractorProtocol?
     private var similarMovies: [Movie] = []
     var movieId: Int? = 0
-    
+
     init(interactor: MovieDetailInteractorProtocol,
          router: MovieDetailRouterProtocol,
-         view:  MovieDetailViewControllerProtocol) {
+         view: MovieDetailViewControllerProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -39,7 +39,7 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
     var numberOfSimilarMovies: Int {
         similarMovies.count
     }
-    
+
     var collectionViewItemCGSize: CGSize {
         CGSize(width: 120.0, height: 230.0)
     }
@@ -50,20 +50,20 @@ extension MovieDetailPresenter: MovieDetailPresenterProtocol {
         view?.setupBackAction()
         interactor?.fetchSimilarMovie(movieId: movieId!)
     }
-    
+
     func viewWillAppear(_ animated: Bool) {
         view?.hideNavigationBar(animated: animated)
     }
-    
+
     func viewWillDisappear(_ animated: Bool) {
         view?.showNavigationBar(animated: animated)
     }
-    
+
     func didSelectRowAt(index: Int) {
         guard let movie = getSimilarMovie(index: index) else { return }
         router?.navigate(.movieDetail(movie: movie))
     }
-    
+
     func getSimilarMovie(index: Int) -> Movie? {
         similarMovies[safe: index]
     }
@@ -80,4 +80,3 @@ extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
         }
     }
 }
-

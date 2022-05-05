@@ -9,7 +9,6 @@ import Alamofire
 import Foundation
 
 final class NetworkManager {
-    
     static let shared: NetworkManager = NetworkManager()
 
     var networkIsReachable: Bool {
@@ -18,8 +17,8 @@ final class NetworkManager {
 
     func request<T: Codable>(_ request: URLRequestConvertible,
                              decodeToType type: T.Type,
-                             completionHandler: @escaping (Result<T, Error>) -> ()) {
-        
+                             completionHandler: @escaping (Result<T, Error>) -> Void) {
+
         AF.request(request).responseData { response in
             switch response.result {
             case .success(let data):

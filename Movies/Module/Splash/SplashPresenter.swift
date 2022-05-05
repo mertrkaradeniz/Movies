@@ -15,8 +15,8 @@ final class SplashPresenter {
     private weak var view: SplashViewControllerProtocol?
     private let router: SplashRouterProtocol?
     private let interactor: SplashInteractorProtocol?
-    
-    init(interactor: SplashInteractorProtocol,  router: SplashRouterProtocol, view:  SplashViewControllerProtocol) {
+
+    init(interactor: SplashInteractorProtocol, router: SplashRouterProtocol, view: SplashViewControllerProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -40,4 +40,3 @@ extension SplashPresenter: SplashInteractorOutputProtocol {
         }
     }
 }
-

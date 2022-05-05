@@ -17,7 +17,7 @@ protocol SplashInteractorOutputProtocol: AnyObject {
 
 final class SplashInteractor: SplashInteractorProtocol {
     var output: SplashInteractorOutputProtocol?
-    
+
     func checkInternetConnection() {
         let internetConnectionStatus = NetworkManager.shared.networkIsReachable
         self.output?.internetConnection(status: internetConnectionStatus)

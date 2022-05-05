@@ -11,7 +11,7 @@ class SimilarMovieCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var label: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

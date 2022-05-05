@@ -14,7 +14,7 @@ protocol MovieCellPresenterProtocol: AnyObject {
 final class MovieCellPresenter {
     private weak var view: MovieCellProtocol?
     private let movie: Movie
-    
+
     init(view: MovieCellProtocol, movie: Movie) {
         self.view = view
         self.movie = movie

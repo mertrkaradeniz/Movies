@@ -27,7 +27,7 @@ class LoadingView {
     }
 
     func startLoading() {
-        UIApplication.shared.keyWindow?.addSubview(blurView)
+        UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.flatMap { $0.windows }.first { $0.isKeyWindow }?.addSubview(blurView)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.startAnimating()
     }

@@ -16,18 +16,18 @@ protocol MovieDetailRouterProtocol: AnyObject {
 }
 
 final class MovieDetailRouter {
-    weak var viewController: MovieDetailViewController?
-    
+    private weak var viewController: MovieDetailViewController?
+
     static func setupModule() -> MovieDetailViewController {
-        let vc = MovieDetailViewController()
+        let movieDetailVC = MovieDetailViewController()
         let interactor = MovieDetailInteractor()
         let router = MovieDetailRouter()
-        let presenter = MovieDetailPresenter(interactor: interactor, router: router, view: vc)
-        
-        vc.presenter = presenter
+        let presenter = MovieDetailPresenter(interactor: interactor, router: router, view: movieDetailVC)
+
+        movieDetailVC.presenter = presenter
         interactor.output = presenter
-        router.viewController = vc
-        return vc
+        router.viewController = movieDetailVC
+        return movieDetailVC
     }
 }
 
@@ -35,9 +35,9 @@ extension MovieDetailRouter: MovieDetailRouterProtocol {
     func navigate(_ route: DetailRoutes) {
         switch route {
         case .movieDetail(let movie):
-            let vc = MovieDetailRouter.setupModule()
-            vc.movie = movie
-            viewController?.navigationController?.pushViewController(vc, animated: true)
+            let movieDetailVC = MovieDetailRouter.setupModule()
+            movieDetailVC.movie = movie
+            viewController?.navigationController?.pushViewController(movieDetailVC, animated: true)
         }
     }
 }

@@ -26,14 +26,14 @@ final class HomePresenter {
     private weak var view: HomeViewControllerProtocol?
     private let router: HomeRouterProtocol?
     private let interactor: HomeInteractorProtocol?
-    
+
     private var upcomingMovies: [Movie] = []
     private var nowPlayingMovies: [Movie] = []
     private var searchedMovies: [Movie] = []
     private var objects: [Any] = []
-    
+
     private var currentPage = 1
-    
+
     init(interactor: HomeInteractorProtocol, router: HomeRouterProtocol, view: HomeViewControllerProtocol) {
         self.view = view
         self.interactor = interactor
@@ -42,62 +42,61 @@ final class HomePresenter {
 }
 
 extension HomePresenter: HomePresenterProtocol {
-    
     var numberOfSearchedMovies: Int {
         searchedMovies.count
     }
-    
+
     var numberOfObjects: Int {
         objects.count
     }
-    
+
     func viewDidLoad() {
         view?.prepareSearchBar("Search Movie")
         view?.prepareTableView()
         view?.prepareSearchTableView()
         fetchUpcomingAndNowPlayingMovies()
     }
-    
+
     func viewWillAppear(_ animated: Bool) {
         view?.hideNavigationBar(animated)
     }
-    
+
     func viewWillDisappear(_ animated: Bool) {
         view?.showNavigationBar(animated)
     }
-    
-    private func fetchUpcomingAndNowPlayingMovies(){
+
+    private func fetchUpcomingAndNowPlayingMovies() {
         view?.showLoadingView()
         interactor?.fetchUpcomingMovies()
     }
-    
+
     func getMovie(_ index: Int) -> Any? {
         objects[safe: index]
     }
-    
+
     func getSearchedMovie(_ index: Int) -> Movie? {
         searchedMovies[safe: index]
     }
-    
+
     func getSliderMovie(_ index: Int) -> Movie? {
         nowPlayingMovies[safe: index]
     }
-    
+
     func didSelectRowAt(index: Int) {
         guard let movie = getMovie(index) as? Movie else { return }
         router?.navigate(.movieDetail(movie: movie))
     }
-    
+
     func didSelectSliderRowAt(index: Int) {
         guard let movie = getSliderMovie(index) else { return }
         router?.navigate(.movieDetail(movie: movie))
     }
-    
+
     func didSelectSearchRowAt(index: Int) {
         guard let movie = getSearchedMovie(index) else { return }
         router?.navigate(.movieDetail(movie: movie))
     }
-    
+
     func searchMovies(with query: String) {
         interactor?.fetchSearchedMovies(query: query, page: currentPage)
     }
@@ -116,7 +115,7 @@ extension HomePresenter: HomeInteractorOutputProtocol {
             print(error)
         }
     }
-    
+
     func fetchUpcomingMoviesOutput(result: MoviesResult) {
         switch result {
         case .success(let moviesResult):
@@ -129,7 +128,7 @@ extension HomePresenter: HomeInteractorOutputProtocol {
             print(error)
         }
     }
-    
+
     func fetchSearchedMoviesOutput(result: MoviesResult) {
         switch result {
         case .success(let moviesResult):
@@ -140,4 +139,3 @@ extension HomePresenter: HomeInteractorOutputProtocol {
         }
     }
 }
-

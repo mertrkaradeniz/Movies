@@ -8,7 +8,7 @@
 import Foundation
 
 typealias MovieResult = Result<Movie, Error>
-fileprivate var movieService: MovieServiceProtocol = MovieService()
+private var movieService: MovieServiceProtocol = MovieService()
 
 protocol MovieDetailInteractorProtocol: AnyObject {
     func fetchSimilarMovie(movieId: Int)
@@ -20,7 +20,7 @@ protocol MovieDetailInteractorOutputProtocol: AnyObject {
 
 final class MovieDetailInteractor: MovieDetailInteractorProtocol {
     var output: MovieDetailInteractorOutputProtocol?
-    
+
     func fetchSimilarMovie(movieId: Int) {
         movieService.fetchSimilarMovies(movieId: movieId) { result in
             self.output?.fetchSimilarMovieOutput(result: result)

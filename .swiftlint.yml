@@ -1,0 +1,9 @@
+line_length:
+    warning: 150
+    error: 200
+
+identifier_name:
+  allowed_symbols: "_"
+
+excluded:
+    - MoviesResponse.json

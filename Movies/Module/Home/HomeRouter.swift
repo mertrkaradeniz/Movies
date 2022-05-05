@@ -17,17 +17,17 @@ protocol HomeRouterProtocol: AnyObject {
 
 final class HomeRouter {
     private weak var viewController: HomeViewController?
-    
+
     static func setupModule() -> HomeViewController {
-        let vc = HomeViewController()
+        let homeVC = HomeViewController()
         let interactor = HomeInteractor()
         let router = HomeRouter()
-        let presenter = HomePresenter(interactor: interactor, router: router, view: vc)
-        
-        vc.presenter = presenter
+        let presenter = HomePresenter(interactor: interactor, router: router, view: homeVC)
+
+        homeVC.presenter = presenter
         interactor.output = presenter
-        router.viewController = vc
-        return vc
+        router.viewController = homeVC
+        return homeVC
     }
 }
 
@@ -35,9 +35,9 @@ extension HomeRouter: HomeRouterProtocol {
     func navigate(_ route: HomeRoutes) {
         switch route {
         case .movieDetail(movie: let movie):
-            let vc = MovieDetailRouter.setupModule()
-            vc.movie = movie
-            viewController?.navigationController?.pushViewController(vc, animated: true)
+            let movieDetailVC = MovieDetailRouter.setupModule()
+            movieDetailVC.movie = movie
+            viewController?.navigationController?.pushViewController(movieDetailVC, animated: true)
         }
     }
 }

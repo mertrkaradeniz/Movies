@@ -17,16 +17,16 @@ protocol SplashRouterProtocol: AnyObject {
 
 final class SplashRouter {
     private weak var viewController: SplashViewController?
-    
+
     static func setupModule() -> SplashViewController {
-        let vc = SplashViewController()
+        let splashVC = SplashViewController()
         let interactor = SplashInteractor()
         let router = SplashRouter()
-        let presenter = SplashPresenter(interactor: interactor, router: router, view: vc)
-        vc.presenter = presenter
+        let presenter = SplashPresenter(interactor: interactor, router: router, view: splashVC)
+        splashVC.presenter = presenter
         interactor.output = presenter
-        router.viewController = vc
-        return vc
+        router.viewController = splashVC
+        return splashVC
     }
 }
 

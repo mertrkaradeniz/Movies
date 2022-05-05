@@ -24,7 +24,6 @@ public extension ClassNameProtocol {
 
 extension NSObject: ClassNameProtocol {}
 
-//MARK: - UITableView
 public extension UITableView {
     func register<T: UITableViewCell>(cellType: T.Type, bundle: Bundle? = nil) {
         let className = cellType.className
@@ -37,19 +36,17 @@ public extension UITableView {
     }
 
     func dequeueReusableCell<T: UITableViewCell>(with type: T.Type, for indexPath: IndexPath) -> T {
-        return self.dequeueReusableCell(withIdentifier: type.className, for: indexPath) as! T
+        guard let cell = self.dequeueReusableCell(withIdentifier: type.className, for: indexPath) as? T else { fatalError() }
+        return cell
     }
 }
 
-//MARK: - Arrays
 public extension Collection where Indices.Iterator.Element == Index {
-  /// Returns the element at the specified index iff it is within bounds, otherwise nil.
-  subscript (safe index: Index) -> Iterator.Element? {
-    return indices.contains(index) ? self[index] : nil
-  }
+    subscript (safe index: Index) -> Iterator.Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }
 
-//MARK: - UICollectionView
 extension UICollectionReusableView {
     static var identifier: String {
         return String(describing: self)
@@ -69,12 +66,14 @@ extension UICollectionView {
         }
         return cell
     }
-    
+
     func registerView(cellType: UICollectionReusableView.Type, kind: String = UICollectionView.elementKindSectionHeader) {
         register(cellType.nib, forSupplementaryViewOfKind: kind, withReuseIdentifier: cellType.identifier)
     }
-    
-    func dequeView<T: UICollectionReusableView>(cellType: T.Type, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> T {
+
+    func dequeView<T: UICollectionReusableView>(cellType: T.Type,
+                                                kind: String = UICollectionView.elementKindSectionHeader,
+                                                indexPath: IndexPath) -> T {
         guard let reusableView = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: cellType.identifier, for: indexPath) as? T else {
             fatalError()
         }
@@ -82,67 +81,43 @@ extension UICollectionView {
     }
 }
 
-//MARK: - UISearchBar
 extension UISearchBar {
     func setupSearchBar(background: UIColor = .white, inputText: UIColor = .black, placeholderText: UIColor = .gray, image: UIColor = .black) {
-
         self.searchBarStyle = .minimal
-
         self.barStyle = .default
-
         // IOS 12 and lower:
         for view in self.subviews {
-
-            for subview in view.subviews {
-                if subview is UITextField {
-                    if let textField: UITextField = subview as? UITextField {
-
-                        // Background Color
-                        textField.backgroundColor = background
-
-                        //   Text Color
-                        textField.textColor = inputText
-
-                        //  Placeholder Color
-                        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : placeholderText])
-
-                        //  Default Image Color
-                        if let leftView = textField.leftView as? UIImageView {
-                            leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
-                            leftView.tintColor = image
-                        }
-
-                        let backgroundView = textField.subviews.first
-                        backgroundView?.backgroundColor = background
-                        backgroundView?.layer.cornerRadius = 10.5
-                        backgroundView?.layer.masksToBounds = true
-
+            for subview in view.subviews where subview is UITextField {
+                if let textField: UITextField = subview as? UITextField {
+                    // Background Color
+                    textField.backgroundColor = background
+                    //   Text Color
+                    textField.textColor = inputText
+                    //  Placeholder Color
+                    textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "",
+                                                                         attributes: [NSAttributedString.Key.foregroundColor: placeholderText])
+                    //  Default Image Color
+                    if let leftView = textField.leftView as? UIImageView {
+                        leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
+                        leftView.tintColor = image
                     }
+                    let backgroundView = textField.subviews.first
+                    backgroundView?.backgroundColor = background
+                    backgroundView?.layer.cornerRadius = 10.5
+                    backgroundView?.layer.masksToBounds = true
                 }
             }
-
         }
-
         // IOS 13 only:
         if let textField = self.value(forKey: "searchField") as? UITextField {
-
-            // Background Color
             textField.backgroundColor = background
-
-            //   Text Color
             textField.textColor = inputText
-
-            //  Placeholder Color
-            textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : placeholderText])
-
-            //  Default Image Color
+            textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "",
+                                                                 attributes: [NSAttributedString.Key.foregroundColor: placeholderText])
             if let leftView = textField.leftView as? UIImageView {
                 leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
                 leftView.tintColor = image
             }
-
         }
-
     }
-
 }

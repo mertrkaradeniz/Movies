@@ -23,18 +23,18 @@ final class HomeViewController: BaseViewController, LoadingShowable {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var searchTableView: UITableView!
-    
+
     var presenter: HomePresenterProtocol?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         presenter?.viewWillAppear(animated)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         presenter?.viewWillDisappear(animated)
     }
@@ -49,7 +49,7 @@ extension HomeViewController: HomeViewControllerProtocol {
         tableView.register(cellType: SliderTableViewCell.self)
         tableView.accessibilityIdentifier = "tableViewIdentifier"
     }
-    
+
     func prepareSearchTableView() {
         searchTableView.accessibilityIdentifier = "searchTableViewIdentifier"
         searchTableView.isHidden = true
@@ -58,34 +58,34 @@ extension HomeViewController: HomeViewControllerProtocol {
         searchTableView.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         searchTableView.register(cellType: SearchTableViewCell.self)
     }
-    
+
     func prepareSearchBar(_ placeholder: String) {
         searchBar.delegate = self
         searchBar.setupSearchBar(background: .white, inputText: .darkGray, placeholderText: .darkGray, image: .darkGray)
         searchBar.placeholder = placeholder
     }
-    
+
     func reloadData() {
         tableView.reloadData()
     }
-    
+
     func searchReloadData() {
         searchTableView.isHidden = false
         self.searchTableView.reloadData()
     }
-    
+
     func showLoadingView() {
         showLoading()
     }
-    
+
     func hideLoadingView() {
         hideLoading()
     }
-    
+
     func showNavigationBar(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+
     func hideNavigationBar(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -99,12 +99,12 @@ extension HomeViewController: UITableViewDataSource {
             return presenter?.numberOfSearchedMovies ?? 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.tableView {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(with: SliderTableViewCell.self, for: indexPath)
-                cell.didSelectItemAt = { [weak self] index in
+                cell.didSelectItemAt = { [weak self] (index: Int) in
                     guard let self = self else { return }
                     self.presenter?.didSelectSliderRowAt(index: index)
                 }
@@ -126,9 +126,9 @@ extension HomeViewController: UITableViewDataSource {
         cell.configure(with: presenter?.getSearchedMovie(indexPath.row))
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == self.tableView && indexPath.row == 0{
+        if tableView == self.tableView && indexPath.row == 0 {
             return 250.0
         } else if tableView == self.searchTableView {
             return 50.0
